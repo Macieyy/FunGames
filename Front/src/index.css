@@ -1,0 +1,9 @@
+body{
+    margin: 0;
+    overflow: hidden;
+}
+
+@font-face{
+    font-family: 'Pixel';
+    src: url("./resources/fonts/Pixel-LCD-7.woff") format('woff');
+}
