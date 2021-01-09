@@ -4,8 +4,6 @@ const passport = require('passport');
 const passportConfig = require('../passport');
 const JWT = require('jsonwebtoken');
 const User = require('../models/User');
-const Highscores = require('../models/Highscores');
-const { query } = require('express');
 
 const signToken = userID =>{
     return JWT.sign({
@@ -40,7 +38,7 @@ userRouter.post('/login',passport.authenticate('local',{session : false}),(req,r
         const {_id,username} = req.user;
         const token = signToken(_id);
         res.cookie('access_token', token,{httpOnly: true, sameSite: true});
-        res.status(200).json({isAuthenticated : true, user : {username}})
+        res.status(200).json({isAuthenticated : true, user : {username}});
     }
 });
 
@@ -50,17 +48,17 @@ userRouter.get('/logout',passport.authenticate('jwt',{session : false}),(req,res
 });
 
 
-userRouter.put('/highscore/:id', (req, res, next) => {
+userRouter.put('/update_highscore/:id',passport.authenticate('jwt',{session : false}), (req, res) => {
     User.findOneAndUpdate({"highScores._id" : req.params.id}, {$set: {"highScores.$.highScore": req.body.highScore, "highScores.$.creationDate": new Date()}}).then(
       () => {
-        res.status(201).json({
-          message: "High score updated succesfully"
+        res.status(200).json({
+          message: {msgBody : "High score updated succesfully", msgError: false}
         });
       }
     ).catch(
       (error) => {
-        res.status(400).json({
-          error: error
+        res.status(500).json({
+            message : {msgBody : error, msgError: true}
         });
       }
     );
@@ -75,5 +73,11 @@ userRouter.get('/highscores',passport.authenticate('jwt',{session : false}),(req
         }
     });
 });
+
+userRouter.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    const {username} = req.user;
+    res.status(200).json({isAuthenticated : true, user : {username}});
+});
+
 
 module.exports = userRouter;

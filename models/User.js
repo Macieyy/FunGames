@@ -1,18 +1,15 @@
 const mongoose = require('mongoose');
-const findOrCreate = require('mongoose-findorcreate');
 //szyfrowanie danych
 const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
     username :{
         type: String,
-        required : true,
-        max : 20
+        required : true
     },
     password :{
         type : String,
-        required: true,
-        min : 4
+        required: true
     },
     highScores : [
         {
@@ -56,6 +53,5 @@ UserSchema.methods.comparePassword = function(password,cb){
     });
 }
 
-UserSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model('User',UserSchema);

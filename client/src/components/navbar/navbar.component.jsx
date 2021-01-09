@@ -1,52 +1,59 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import AuthService from "../../services/AuthService";
+import { AuthContext } from "../../context/AuthContext";
 
-export default class PageNavbar extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
+const PageNavbar = (props) => {
+  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
+    AuthContext
+  );
 
-      };
+  const onClickLogoutHandler = () => {
+    AuthService.logout().then((data) => {
+      if (data.success) {
+        setUser(data.user);
+        setIsAuthenticated(false);
+      }
+    });
+  };
 
-    }
+  const unauthenticatedNavBar = () => {
+    return (
+      <>
+        <Link className="ml-auto" to="/login">
+          <Button variant="outline-info">Login</Button>
+        </Link>
+        <Link className="ml-2" to="register">
+          <Button variant="outline-info">Register</Button>
+        </Link>
+      </>
+    );
+  };
 
+  const authenticatedNavBar = () => {
+    return (
+      <>
+        <Nav className="mr-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="profile">Profile</Nav.Link>
+        </Nav>
+        <Navbar.Text className="mr-2">
+          Signed in as: <Link to="profile">{user}</Link>
+        </Navbar.Text>
+        <Button variant="outline-info" onClick={onClickLogoutHandler}>
+          Logout
+        </Button>
+      </>
+    );
+  };
 
+  return (
+    <Navbar bg="dark" variant="dark">
+      <Navbar.Brand>FunGames</Navbar.Brand>
+      {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
+    </Navbar>
+  );
+};
 
-
-
-    render() {
-      return (
-        <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="/">Logo</Navbar.Brand>
-          <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="profile">Profile</Nav.Link>
-          </Nav>
-          <Navbar.Text className="mr-2">
-      Signed in as: <a href="profile">Lukasz Maciej</a>
-          </Navbar.Text>
-          <Button
-            variant="outline-info"
-          >
-            Log out
-          </Button>
-        </Navbar>)
-      // ) : (
-      //   <Navbar className="mb-5" bg="dark" variant="dark">
-      //     <Nav className="mr-auto">
-      //       <Nav.Link href="/"></Nav.Link>
-      //       <Nav.Link href="profile"></Nav.Link>
-      //     </Nav>
-      //     <Link to="/login">
-      //       <Button className="mx-3" variant="outline-info">
-      //         Login
-      //       </Button>
-      //     </Link>
-      //     <Link to="/register">
-      //       <Button variant="outline-info">Register</Button>
-      //     </Link>
-      //   </Navbar>
-      // );
-
-}}
+export default PageNavbar;

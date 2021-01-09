@@ -1,9 +1,9 @@
 @media all and (min-width: 480px) {
-    .Login {
+    .auth_form {
       padding: 60px 0;
     }
   
-    .Login form {
+    .auth_form form {
       margin: 0 auto;
       max-width: 320px;
     }
