@@ -39,7 +39,7 @@ const PageNavbar = (props) => {
           <Nav.Link href="profile">Profile</Nav.Link>
         </Nav>
         <Navbar.Text className="mr-2">
-          Signed in as: <Link to="profile">{user}</Link>
+          Signed in as: <Link to="profile">{user.username}</Link>
         </Navbar.Text>
         <Button variant="outline-info" onClick={onClickLogoutHandler}>
           Logout

@@ -26,11 +26,20 @@ const Cubes = () => {
 
   const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
   const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
-  const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(
-    rowsCleared
-  );
+  const [
+    score,
+    setScore,
+    rows,
+    setRows,
+    level,
+    setLevel,
+    highScore,
+    updateHighScore,
+    updateScoree200,
+    updateScoree400
+  ] = useGameStatus(rowsCleared);
 
-  console.log("re-render");
+  //console.log("re-render");
 
   const movePlayer = (dir) => {
     if (!checkCollision(player, stage, { x: dir, y: 0 }))
@@ -42,26 +51,28 @@ const Cubes = () => {
     setStage(createStage());
     setDropTime(1000);
     resetPlayer();
-	setGameOver(false);
-	setScore(0);
-	setRows(0);
-	setLevel(0);
+    setGameOver(false);
+    setScore(0);
+    setRows(0);
+    setLevel(0);
   };
 
   const drop = () => {
-	//zwiekszenie poziomu gdy gracz połączył 10 rzędów
-	if(rows > (level + 1) * 10){
-		setLevel(prev => prev+1);
-		setDropTime(1000 / (level + 1) + 200);
-	}
+    //zwiekszenie poziomu gdy gracz połączył 10 rzędów
+    if (rows > (level + 1) * 10) {
+      setLevel((prev) => prev + 1);
+      setDropTime(1000 / (level + 1) + 200);
+    }
     if (!checkCollision(player, stage, { x: 0, y: 1 }))
       updatePlayerPos({ x: 0, y: 1, collided: false });
     else {
-		//koniec gry
+      //koniec gry
       if (player.pos.y < 1) {
         console.log("GAME OVER");
+        updateHighScore();
         setGameOver(true);
         setDropTime(null);
+        
       }
       updatePlayerPos({ x: 0, y: 0, collided: true });
     }
@@ -116,8 +127,11 @@ const Cubes = () => {
             ) : (
               <div>
                 <Display text={`Score: ${score}`} />
-                <Display text={`Rows: ${rows}`}/>
-                <Display text={`Level: ${level}`}/>
+                <Display text={`Rows: ${rows}`} />
+                <Display text={`Level: ${level}`} />
+                <Display text={`High score: ${highScore.highScore}`} />
+                <button onClick={updateScoree200}>40</button>
+                <button onClick={updateScoree400}>200</button>
               </div>
             )}
             <StartButton callback={startGame} />

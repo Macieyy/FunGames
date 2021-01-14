@@ -48,8 +48,8 @@ userRouter.get('/logout',passport.authenticate('jwt',{session : false}),(req,res
 });
 
 
-userRouter.put('/update_highscore/:id',passport.authenticate('jwt',{session : false}), (req, res) => {
-    User.findOneAndUpdate({"highScores._id" : req.params.id}, {$set: {"highScores.$.highScore": req.body.highScore, "highScores.$.creationDate": new Date()}}).then(
+userRouter.put(`/update_highscore`,passport.authenticate('jwt',{session : false}), (req, res) => {
+    User.findOneAndUpdate({"highScores._id" : req.body.id}, {$set: {"highScores.$.highScore": req.body.highScore, "highScores.$.creationDate": new Date()}}).then(
       () => {
         res.status(200).json({
           message: {msgBody : "High score updated succesfully", msgError: false}

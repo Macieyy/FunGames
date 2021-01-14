@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 app.use(cookieParser());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/FunGamesDB', {useNewUrlParser :true, useUnifiedTopology: true}, ()=>{
+mongoose.connect('mongodb://localhost:27017/FunGamesDB', {useNewUrlParser :true, useUnifiedTopology: true, useFindAndModify: false}, ()=>{
     console.log('connected to DB');
 })
 
