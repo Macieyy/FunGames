@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { createStage, checkCollision } from "./gameHelper";
 
@@ -14,6 +14,7 @@ import { useInterval } from "../../../hooks/useInterval";
 import { usePlayer } from "../../../hooks/usePlayer";
 import { useStage } from "../../../hooks/useStage";
 import { useGameStatus } from "../../../hooks/useGameStatus";
+import { useHighScores } from "../../../hooks/useHighScores";
 
 //Components
 import Stage from "../../../components/cubes-components/Stage";
@@ -23,21 +24,14 @@ import StartButton from "../../../components/cubes-components/StartButton";
 const Cubes = () => {
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
+  const [highScore, setHighScore] = useState(0);
 
   const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
   const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
-  const [
-    score,
-    setScore,
-    rows,
-    setRows,
-    level,
-    setLevel,
-    highScore,
-    updateHighScore,
-    updateScoree200,
-    updateScoree400
-  ] = useGameStatus(rowsCleared);
+  const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(
+    rowsCleared
+  );
+  const [highScores, updateHighScore] = useHighScores();
 
   //console.log("re-render");
 
@@ -69,10 +63,9 @@ const Cubes = () => {
       //koniec gry
       if (player.pos.y < 1) {
         console.log("GAME OVER");
-        updateHighScore();
         setGameOver(true);
         setDropTime(null);
-        
+        updateHighScore("cubes", score);
       }
       updatePlayerPos({ x: 0, y: 0, collided: true });
     }
@@ -106,7 +99,11 @@ const Cubes = () => {
       }
     }
   };
-
+  useEffect(() => {
+    if (highScores.length > 0) {
+      setHighScore(highScores[0].highScore);
+    }
+  }, [highScores]);
   useInterval(() => {
     drop();
   }, dropTime);
@@ -123,15 +120,13 @@ const Cubes = () => {
           <Stage stage={stage} />
           <aside>
             {gameOver ? (
-              <Display gameOver={gameOver} text="Game Over" />
+              <Display gameOver={gameOver} text="Game Over" game="cubes" />
             ) : (
               <div>
-                <Display text={`Score: ${score}`} />
-                <Display text={`Rows: ${rows}`} />
-                <Display text={`Level: ${level}`} />
-                <Display text={`High score: ${highScore.highScore}`} />
-                <button onClick={updateScoree200}>40</button>
-                <button onClick={updateScoree400}>200</button>
+                <Display text={`Score: ${score}`} game="cubes" />
+                <Display text={`Rows: ${rows}`} game="cubes" />
+                <Display text={`Level: ${level}`} game="cubes" />
+                <Display text={`High score: ${highScore}`} game="cubes" />
               </div>
             )}
             <StartButton callback={startGame} />

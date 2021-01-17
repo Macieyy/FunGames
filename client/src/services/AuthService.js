@@ -6,7 +6,6 @@ export default {
             body : JSON.stringify(user),
             headers : {
                 'Content-Type' : 'application/json',
-                'Accept': 'application/json'
             }
         }).then(res => {
             if(res.status !== 401)

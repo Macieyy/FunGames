@@ -1,0 +1,24 @@
+.zone-container {
+    box-sizing: border-box;
+    background-color: #F8F8F8;
+    border: .5px solid rgba(130, 130, 130, 0.5);
+    width: 1000px;
+    height: 700px;
+    font-size: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+.avoid_displays{
+    padding: 0 20px;
+}
+  .row {
+    display: "flex";
+    line-height: 32px;
+    height: 32px;
+  }
+
+.ball {
+    border: 1px solid #000;
+    border-radius: 50%;
+    position: absolute;
+}

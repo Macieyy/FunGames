@@ -1,5 +1,6 @@
 import React, {createContext,useState,useEffect} from 'react';
 import AuthService from '../services/AuthService';
+import Spinner from 'react-bootstrap/Spinner'
 
 export const AuthContext = createContext();
 
@@ -18,7 +19,7 @@ export default ({ children })=>{
 
     return (
         <>
-            {!isLoaded ? <h1>Loading</h1> : 
+            {!isLoaded ?  <Spinner animation="border" variant="info" /> : 
             <AuthContext.Provider value={{user,setUser,isAuthenticated,setIsAuthenticated}}>
                 { children }
             </AuthContext.Provider>}

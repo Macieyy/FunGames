@@ -1,0 +1,12 @@
+.snake_game_container{
+    padding: 30px;
+}
+.snake_game_container canvas{
+    background:#b1e6bd;
+}
+#snake_stage{
+    border: 1px solid black;
+}
+.snake_displays{
+    padding: 0 20px;
+}

@@ -15,16 +15,16 @@ class GamePanel extends React.Component {
                     linkUrl: 'cubes'
                 },
                 {
-                    title: 'game2',
+                    title: 'Snake',
                     imageUrl: 'https://st2.depositphotos.com/3040429/5641/i/450/depositphotos_56419261-stock-photo-play.jpg',
                     id: 2,
-                    linkUrl: 'game2'
+                    linkUrl: 'snake'
                 },
                 {
-                    title: 'game3',
+                    title: 'Avoid the dot',
                     imageUrl: 'https://cdn.pixabay.com/photo/2015/05/13/03/27/first-764971__480.jpg',
                     id: 3,
-                    linkUrl: 'game3'
+                    linkUrl: 'avoid_the_dot'
                 }
             ],
         };

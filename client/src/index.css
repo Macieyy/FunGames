@@ -1,6 +1,17 @@
+html{
+    height: 100%;
+}
 body{
+    height: 100%;
     margin: 0;
     overflow: hidden;
+    background-image: url(/static/media/mainBG.378d8d68.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.root{
+    height: 100%;
 }
 
 @font-face{
