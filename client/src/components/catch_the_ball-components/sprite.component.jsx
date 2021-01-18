@@ -1,5 +1,5 @@
 import React from "react";
-import playerSprite from "../../resources/sprites/avoid_the_dot/player.png"
+import playerSprite from "../../resources/sprites/catch_the_ball/player.png"
 
 const Sprite = ({setRef, data, position}) =>{
     const {y, x, h, w} = data;

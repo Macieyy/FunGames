@@ -1,7 +1,9 @@
 import React from "react"
 import "./game-panel.styles.css"
 import MenuGame from "../menu-game-item/menu-game-item.component"
-
+import CubesBG from "../../resources/sprites/cubes/gamePanelBG.jpg"
+import SnakeBG from "../../resources/sprites/snake/gamePanelBG.jpg"
+import CatchTheBallBG from "../../resources/sprites/catch_the_ball/gamePanelBG.jpg"
 
 class GamePanel extends React.Component {
     constructor() {
@@ -10,21 +12,21 @@ class GamePanel extends React.Component {
             games: [
                 {
                     title: 'Cubes',
-                    imageUrl: 'https://i.ibb.co/5xgb5Jj/Cubes-Screen.jpg',
+                    image: CubesBG,
                     id: 1,
                     linkUrl: 'cubes'
                 },
                 {
                     title: 'Snake',
-                    imageUrl: 'https://st2.depositphotos.com/3040429/5641/i/450/depositphotos_56419261-stock-photo-play.jpg',
+                    image: SnakeBG,
                     id: 2,
                     linkUrl: 'snake'
                 },
                 {
-                    title: 'Avoid the dot',
-                    imageUrl: 'https://cdn.pixabay.com/photo/2015/05/13/03/27/first-764971__480.jpg',
+                    title: 'Catch the ball',
+                    image: CatchTheBallBG,
                     id: 3,
-                    linkUrl: 'avoid_the_dot'
+                    linkUrl: 'catch_the_ball'
                 }
             ],
         };

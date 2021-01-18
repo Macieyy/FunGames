@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import "./navbar.styles.css"
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AuthService from "../../services/AuthService";

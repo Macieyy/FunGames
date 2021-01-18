@@ -11,9 +11,11 @@ import Register from "./pages/auth/register.component";
 //games
 import Cubes from "./pages/games/Cubes/Cubes.component";
 import Snake from "./pages/games/Snake/Snake.component";
-import AvoidTheDot from "./pages/games/Avoid_the_dot/Avoid_the_dot.component";
+import CatchTheBall from "./pages/games/Catch_the_ball/Catch_the_ball";
 
 function App() {
+
+
   return (
     <Router basename="/">
       <div className="App">
@@ -26,7 +28,7 @@ function App() {
           <PrivateRoute path="/profile" exact component={Leaderboard} />
           <PrivateRoute path="/cubes" exact component={Cubes} />
           <PrivateRoute path="/snake" exact component={Snake} />
-          <PrivateRoute path="/avoid_the_dot" exact component={AvoidTheDot} />
+          <PrivateRoute path="/catch_the_ball" exact component={CatchTheBall} />
         </Switch>
       </div>
     </Router>

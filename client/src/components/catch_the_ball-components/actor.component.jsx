@@ -5,7 +5,7 @@ const Actor = ({ setRef, data, step = 10, dir = 0, position = { x: 0, y: 0 } }) 
   const { h, w } = data;
   return (
     <Sprite
-    setRef={setRef}
+      setRef={setRef}
       position={position}
       data={{
         x: step * w,

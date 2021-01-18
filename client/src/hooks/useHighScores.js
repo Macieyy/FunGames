@@ -19,7 +19,6 @@ export const useHighScores = () => {
         if (!message.msgError) {
           HighScoreService.getHighscores().then((getData) => {
             setHighScores(getData.highScores);
-            setMessage(message);
           });
         } else if (message.msgBody === "Unauthorized") {
           setMessage(message);
@@ -36,10 +35,6 @@ export const useHighScores = () => {
     HighScoreService.getHighscores().then((data) => {
       setHighScores(data.highScores);
     });
-    let test = highScores.find((x) => x.gameName === "cubes");
-    if (test !== undefined) {
-      console.log(test);
-    }
   }, [highScores.length]);
   return [highScores, updateHighScore];
 };

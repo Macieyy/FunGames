@@ -10,7 +10,7 @@ border-radius: 20px;
 border: none;
 color: white;
 background: #333;
-font-family: Pixel, Arial, Helvetica, sans-serif;
+font-family: Orion, Arial, Helvetica, sans-serif;
 font-size: 1rem;
 outline: none;
 cursor: pointer;

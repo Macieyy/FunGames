@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import bgImage from "../../../resources/sprites/star-background.png";
+import bgImage from "../../../resources/sprites/cubes/CubesBG.jpg";
 
 export const StyledCubesWrapper = styled.div`
   width: 100vw;

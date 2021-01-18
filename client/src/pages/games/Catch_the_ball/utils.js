@@ -1,7 +1,6 @@
-import { SIZES, SPRITES } from './constants';
+import { SIZES, SPRITES, MAX_POINTS } from './constants';
 
 export const createBall = () => {
-    //wybor wielkosci
     const sprite = SPRITES[Math.floor(Math.random() * SPRITES.length)]
     const size = SIZES[Math.floor(Math.random() * SIZES.length)]
     
@@ -19,4 +18,8 @@ export const removeBall = (dots, index) => {
     const newBalls = [...dots];
     newBalls.splice(index, 1);
     return newBalls;    
+};
+
+export const calculatePoints = (dot) => {
+    return MAX_POINTS - dot.size;
 };

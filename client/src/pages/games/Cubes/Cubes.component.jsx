@@ -133,6 +133,12 @@ const Cubes = () => {
           </aside>
         </StyledCubes>
       </StyledCubesWrapper>
+      <a
+        href="https://www.freepik.com/vectors/background"
+        style={{ position: "fixed", bottom: "0", right: "0", color: "white" }}
+      >
+        Background vector created by pikisuperstar - www.freepik.com
+      </a>
     </div>
   );
 };

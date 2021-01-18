@@ -3,7 +3,7 @@ import Actor from "./actor.component";
 import useKeyPress from "../../hooks/useKeyPress";
 import useWalk from "../../hooks/useWalk";
 
-const Player = ({setRef}) => {
+const Player = ({setRef, isRunning}) => {
   const { dir, step, walk, position } = useWalk(3);
   const data = {
     h: 32,
@@ -11,7 +11,9 @@ const Player = ({setRef}) => {
   };
 
   useKeyPress((e) => {
+    if(isRunning){
     walk(e.key.replace("Arrow", "").toLowerCase());
+  }
     e.preventDefault();
   });
 

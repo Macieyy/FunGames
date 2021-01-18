@@ -1,6 +1,7 @@
 @media all and (min-width: 480px) {
     .auth_form {
       padding: 60px 0;
+      color: white;
     }
   
     .auth_form form {

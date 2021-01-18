@@ -21,7 +21,7 @@ userRouter.post('/register',(req,res)=>{
             res.status(400).json({message : {msgBody : "Username seems to be taken, try a different one", msgError: true}});
         else{
             const newUser = new User({ username,password, highScores});
-            newUser.highScores = [ {gameName: "cubes"},{gameName: "snake"},{gameName: "cubes3"}]
+            newUser.highScores = [ {gameName: "cubes"},{gameName: "snake"},{gameName: "catch the ball"}]
             newUser.save(err=>{
                 if(err)
                     res.status(500).json({message : {msgBody : "Error", msgError: true}});

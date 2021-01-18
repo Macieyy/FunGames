@@ -12,6 +12,6 @@ export const StyledDisplay = styled.div`
   border-radius: 20px;
   color: ${props => (props.gameOver ? '#8c0e0e' : '#ffffff')};
   background: #1b7028;
-  font-family: Pixel, Arial, Helvetica, sans-serif;
+  font-family: Orion, Arial, Helvetica, sans-serif;
   font-size: 0.8rem;
 `;

@@ -26,8 +26,8 @@ const Snake = () => {
 
   const endGame = () => {
     setSpeed(null);
-	setGameOver(true);
-	updateHighScore("snake", score);
+    setGameOver(true);
+    updateHighScore("snake", score);
   };
 
   const createApple = () =>
@@ -87,7 +87,7 @@ const Snake = () => {
   useEffect(() => {
     if (highScores.length > 0) {
       setHighScore(highScores[1].highScore);
-	}
+    }
     const context = canvasRef.current.getContext("2d");
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
