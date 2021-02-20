@@ -1,12 +1,8 @@
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useRef
-} from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import "./Catch_the_ball.styles.css";
 import { SPEED_STEP, SPAWN_INTERVAL } from "./constants";
 import { createBall, removeBall, calculatePoints } from "./utils";
+import useWalk from "../../../hooks/useWalk"
 import { useHighScores } from "../../../hooks/useHighScores";
 import Display from "../../../components/catch_the_ball-components/Display";
 import StartButton from "../../../components/catch_the_ball-components/StartButton";
@@ -19,6 +15,7 @@ const CatchTheBall = () => {
   const [speed, setSpeed] = useState(0);
   const [balls, setBalls] = useState([]);
   const [highScore, setHighScore] = useState(0);
+  const { dir, step, walk, position } = useWalk(3);
   const [highScores, updateHighScore] = useHighScores();
   const [gameOver, setGameOver] = useState(null);
   const requestRef = useRef();
@@ -35,7 +32,7 @@ const CatchTheBall = () => {
     setIsRunning(true);
   };
   const endGame = () => {
-	setIsRunning(false);
+    setIsRunning(false);
     setSpeed(null);
     setGameOver(true);
     updateHighScore("catch the ball", score);
@@ -45,6 +42,7 @@ const CatchTheBall = () => {
     const player = playerRef.current.getBoundingClientRect();
     if (balls.length > 0) {
       balls.map((ball, index) => {
+        console.log(document.getElementById("ball" + index));
         const ballPosition = document
           .getElementById("ball" + index)
           .getBoundingClientRect();
@@ -66,23 +64,26 @@ const CatchTheBall = () => {
           playerPos.y < ballPos.y + ballPos.height &&
           playerPos.y + playerPos.height > ballPos.y
         ) {
-          if (ball.sprite.includes("redBall")){
-			endGame();
-			return null;
-		  } else{setScore(score + calculatePoints(balls[index]));
-		  setBalls(removeBall(balls, index))};
-		  return null;
+          if (ball.sprite.includes("redBall")) {
+            endGame();
+            return null;
+          } else {
+            setScore(score + calculatePoints(balls[index]));
+            setBalls(removeBall(balls, index));
+          }
+          return null;
         }
       });
-	}
-	return null;
-}, []);
+    }
+    return null;
+  }, []);
 
   const advanceStep = useCallback(() => {
     setBalls((oldBalls) => {
       const newBalls = [];
       for (let ball of oldBalls) {
         const newY = ball.y + (SPEED_STEP * speed) / 60;
+        //console.log(newY)
         if (newY <= zoneRef.current.offsetHeight - ball.size / 2) {
           newBalls.push({
             ...ball,
@@ -99,11 +100,10 @@ const CatchTheBall = () => {
     setBalls((oldBalls) => [...oldBalls, createBall()]);
   }, [setBalls]);
 
-
   useEffect(() => {
-	if (highScores.length > 0) {
-		setHighScore(highScores[2].highScore);
-	  }
+    if (highScores.length > 0) {
+      setHighScore(highScores[2].highScore);
+    }
     const stop = () => {
       intervalRef.current && clearInterval(intervalRef.current);
       requestRef.current && cancelAnimationFrame(requestRef.current);
@@ -112,14 +112,22 @@ const CatchTheBall = () => {
     if (isRunning) {
       intervalRef.current = setInterval(spawnBall, SPAWN_INTERVAL);
       requestRef.current = requestAnimationFrame(advanceStep);
+      console.log(playerRef.current)
     } else {
       stop();
     }
     checkCollision();
     return () => stop();
-  }, [isRunning, advanceStep, spawnBall, ballsLength, highScores, checkCollision]);
-  
-  
+  }, [
+    position,
+    isRunning,
+    advanceStep,
+    spawnBall,
+    ballsLength,
+    highScores,
+    checkCollision,
+  ]);
+
   return (
     <div className="d-flex justify-content-center p-2">
       <div className="zone-container" ref={zoneRef}>
@@ -128,7 +136,7 @@ const CatchTheBall = () => {
           return <Ball key={`dot-${index}`} {...ball} x={x} index={index} />;
         })}
 
-        <Player setRef={playerRef} isRunning={isRunning}/>
+        <Player setRef={playerRef} isRunning={isRunning} />
       </div>
       <aside className="catch_ball_displays">
         {gameOver ? (
@@ -141,6 +149,12 @@ const CatchTheBall = () => {
         )}
         <StartButton callback={startGame} />
       </aside>
+      <a
+        style={{ position: "fixed", bottom: "0", right: "0", color: "white" }}
+        href="https://www.freepik.com/vectors/star"
+      >
+        Star vector created by upklyak - www.freepik.com
+      </a>
     </div>
   );
 };

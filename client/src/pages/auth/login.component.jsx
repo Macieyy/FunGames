@@ -63,63 +63,14 @@ const Login = (props) => {
         </Form.Text>
         {message ? <Message message={message} /> : null}
       </form>
+      <a
+          style={{ position: "fixed", bottom: "0", right: "0", color: "white" }}
+          href="https://www.freepik.com/vectors/star"
+        >
+          Star vector created by upklyak - www.freepik.com
+        </a>
     </div>
   );
 };
 
 export default Login;
-
-// export default class LoginForm extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//     };
-//   }
-
-//   render() {
-//     return (
-//       <div className="Login">
-//         <form onSubmit={this.handleSubmit}>
-//           <FormGroup controlId="email" bsSize="large">
-//             <FormLabel>Email</FormLabel>
-//             <FormControl
-//               autoFocus
-//               type="email"
-//               value={this.state.email}
-//               onChange={this.handleUsernameChange}
-//             />
-//           </FormGroup>
-//           <FormGroup controlId="password" bsSize="large">
-//             <FormLabel>Password</FormLabel>
-//             <FormControl
-//               value={this.state.password}
-//               onChange={this.handlePasswordChange}
-//               type="password"
-//             />
-//           </FormGroup>
-//           <Button block bsSize="large" type="submit">
-//             Login
-//           </Button>
-//           <Form.Text id="sign-up-link" muted>
-//             <Link to="/register">Create new account</Link>
-//           </Form.Text>
-//         </form>
-//       </div>
-//     );
-//   }
-// }
-
-// export default class LoginPage extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = { };
-
-//   }
-
-//   render() {
-
-//     return (
-//       <LoginForm />
-//     );
-//   }
-// }

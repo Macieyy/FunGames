@@ -4,7 +4,7 @@ import BlueBall from "../../../resources/sprites/catch_the_ball/ball.png"
 
 export const SPRITES = [RedBall, GreenBall, BlueBall];
 
-export const SIZES = [10, 15, 20, 25, 30, 35, 40, 45];
+export const SIZES = [25, 30, 35, 40, 45];
 
 export const SPEED_STEP = 10;
 

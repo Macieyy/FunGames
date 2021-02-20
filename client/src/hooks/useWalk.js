@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const useWalk = (maxSteps) => {
   const [position, setPosition] = useState({x: 0, y: 0});
@@ -34,7 +34,6 @@ const useWalk = (maxSteps) => {
       y: prev.y + modifier[dir].y,
     }));
   };
-
   return { walk, dir, step, position };
 };
 

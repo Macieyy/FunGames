@@ -5,7 +5,7 @@ import "./Snake.styles.css";
 import Display from "../../../components/snake-components/Display";
 import StartButton from "../../../components/snake-components/StartButton";
 import {
-  CANVAS_SIZE,
+  STAGE_SIZE,
   SNAKE_START,
   APPLE_START,
   SCALE,
@@ -31,7 +31,7 @@ const Snake = () => {
   };
 
   const createApple = () =>
-    apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));
+    apple.map((_a, i) => Math.floor(Math.random() * (STAGE_SIZE[i] / SCALE)));
 
   const moveSnake = ({ keyCode }) => {
     keyCode >= 37 && keyCode <= 40 && setDir(DIRECTIONS[keyCode]);
@@ -39,9 +39,9 @@ const Snake = () => {
   //sprawdzenie kolizji ze sciana lub z samym soba
   const checkCollision = (piece, snk = snake) => {
     if (
-      piece[0] * SCALE >= CANVAS_SIZE[0] ||
+      piece[0] * SCALE >= STAGE_SIZE[0] ||
       piece[0] < 0 ||
-      piece[1] * SCALE >= CANVAS_SIZE[1] ||
+      piece[1] * SCALE >= STAGE_SIZE[1] ||
       piece[1] < 0
     )
       return true;
@@ -109,8 +109,8 @@ const Snake = () => {
       <canvas
         id="snake_stage"
         ref={canvasRef}
-        width={`${CANVAS_SIZE[0]}px`}
-        height={`${CANVAS_SIZE[1]}px`}
+        width={`${STAGE_SIZE[0]}px`}
+        height={`${STAGE_SIZE[1]}px`}
       />
       <aside className="snake_displays">
         {gameOver ? (
@@ -123,6 +123,12 @@ const Snake = () => {
         )}
         <StartButton callback={startGame} game="snake" />
       </aside>
+      <a
+          style={{ position: "fixed", bottom: "0", right: "0", color: "white" }}
+          href="https://www.freepik.com/vectors/star"
+        >
+          Star vector created by upklyak - www.freepik.com
+        </a>
     </div>
   );
 };

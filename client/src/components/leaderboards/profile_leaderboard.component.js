@@ -27,6 +27,12 @@ const Leaderboard = () => {
             ))}
         </tbody>
       </Table>
+      <a
+          style={{ position: "fixed", bottom: "0", right: "0", color: "white" }}
+          href="https://www.freepik.com/vectors/star"
+        >
+          Star vector created by upklyak - www.freepik.com
+        </a>
     </div>
   );
 };

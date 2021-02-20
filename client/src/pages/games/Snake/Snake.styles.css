@@ -1,5 +1,5 @@
 .snake_game_container{
-    padding: 30px;
+    padding: 5px;
 }
 .snake_game_container canvas{
     background:#b1e6bd;
