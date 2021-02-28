@@ -1,9 +1,12 @@
 .zone-container {
+  background: url(../../../resources/sprites/catch_the_ball/stageBG.jpg);
+  background-size: cover;
+  overflow: hidden;
     box-sizing: border-box;
-    background-color: #F8F8F8;
+    
     border: .5px solid rgba(130, 130, 130, 0.5);
     width: 1000px;
-    height: 700px;
+    height: 650px;
     font-size: 1rem;
     position: relative;
     overflow: hidden;

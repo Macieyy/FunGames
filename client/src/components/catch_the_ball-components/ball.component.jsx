@@ -1,6 +1,6 @@
 import React from "react";
 
-const Ball = React.forwardRef(props => {
+const Ball = (props => {
   const { x, y, size, sprite, index } = props;
   const ballStyle = {
     backgroundImage: `url(${sprite})`,

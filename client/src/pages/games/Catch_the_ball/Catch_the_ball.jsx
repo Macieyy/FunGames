@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import "./Catch_the_ball.styles.css";
 import { SPEED_STEP, SPAWN_INTERVAL } from "./constants";
 import { createBall, removeBall, calculatePoints } from "./utils";
-import useWalk from "../../../hooks/useWalk"
+import { useInterval } from "../../../hooks/useInterval";
 import { useHighScores } from "../../../hooks/useHighScores";
 import Display from "../../../components/catch_the_ball-components/Display";
 import StartButton from "../../../components/catch_the_ball-components/StartButton";
@@ -15,11 +15,9 @@ const CatchTheBall = () => {
   const [speed, setSpeed] = useState(0);
   const [balls, setBalls] = useState([]);
   const [highScore, setHighScore] = useState(0);
-  const { dir, step, walk, position } = useWalk(3);
   const [highScores, updateHighScore] = useHighScores();
   const [gameOver, setGameOver] = useState(null);
   const requestRef = useRef();
-  const intervalRef = useRef();
   const zoneRef = useRef();
   const playerRef = useRef();
   const ballsLength = balls.length;
@@ -39,51 +37,41 @@ const CatchTheBall = () => {
   };
 
   const checkCollision = useCallback(() => {
-    const player = playerRef.current.getBoundingClientRect();
-    if (balls.length > 0) {
-      balls.map((ball, index) => {
-        console.log(document.getElementById("ball" + index));
-        const ballPosition = document
-          .getElementById("ball" + index)
-          .getBoundingClientRect();
-        var playerPos = {
-          x: player.x,
-          y: player.y,
-          width: player.width,
-          height: player.height,
-        };
-        var ballPos = {
-          x: ballPosition.x,
-          y: ballPosition.y,
-          width: ballPosition.width,
-          height: ballPosition.height,
-        };
-        if (
-          playerPos.x < ballPos.x + ballPos.width &&
-          playerPos.x + playerPos.width > ballPos.x &&
-          playerPos.y < ballPos.y + ballPos.height &&
-          playerPos.y + playerPos.height > ballPos.y
-        ) {
-          if (ball.sprite.includes("redBall")) {
-            endGame();
-            return null;
-          } else {
-            setScore(score + calculatePoints(balls[index]));
-            setBalls(removeBall(balls, index));
-          }
-          return null;
+    var player = playerRef.current.getBoundingClientRect();
+    balls.map((ball, index) => {
+      console.log(ball);
+      var ballRect = document
+        .getElementById("ball" + index)
+        .getBoundingClientRect();
+      if (
+        player.top + player.height < ballRect.top ||
+        player.top > ballRect.top + ballRect.height ||
+        player.left + player.width < ballRect.left ||
+        player.left > ballRect.left + ballRect.width
+      ) {
+        if (ball.sprite.includes("redBall")) {
+          endGame();
+          return;
+        } else {
+          setScore(score + calculatePoints(balls[index]));
+          setBalls(removeBall(balls, index));
         }
-      });
-    }
-    return null;
+        return;
+      }
+    });
+    return false;
   }, []);
 
   const advanceStep = useCallback(() => {
     setBalls((oldBalls) => {
       const newBalls = [];
       for (let ball of oldBalls) {
+        // console.log(
+        //   document
+        //     .getElementById("ball" + oldBalls.indexOf(ball))
+        //     .getBoundingClientRect()
+        // );
         const newY = ball.y + (SPEED_STEP * speed) / 60;
-        //console.log(newY)
         if (newY <= zoneRef.current.offsetHeight - ball.size / 2) {
           newBalls.push({
             ...ball,
@@ -105,28 +93,41 @@ const CatchTheBall = () => {
       setHighScore(highScores[2].highScore);
     }
     const stop = () => {
-      intervalRef.current && clearInterval(intervalRef.current);
       requestRef.current && cancelAnimationFrame(requestRef.current);
     };
 
     if (isRunning) {
-      intervalRef.current = setInterval(spawnBall, SPAWN_INTERVAL);
       requestRef.current = requestAnimationFrame(advanceStep);
-      console.log(playerRef.current)
+      var player = playerRef.current.getBoundingClientRect();
+      if (ballsLength > 0) {
+        for (let ball of balls) {
+          var ballRect = document
+            .getElementById("ball" + balls.indexOf(ball))
+            .getBoundingClientRect();
+          if (
+            !(player.top + player.height < ballRect.top ||
+            player.top > ballRect.top + ballRect.height ||
+            player.left + player.width < ballRect.left ||
+            player.left > ballRect.left + ballRect.width)
+          ) {
+            if (ball.sprite.includes("redBall")) {
+              endGame();
+            } else {
+              console.log("collided")
+              setScore(score + calculatePoints(balls[balls.indexOf(ball)]));
+              setBalls(removeBall(balls, balls.indexOf(ball)));
+            }
+
+          }
+        };
+      }
     } else {
       stop();
     }
-    checkCollision();
     return () => stop();
-  }, [
-    position,
-    isRunning,
-    advanceStep,
-    spawnBall,
-    ballsLength,
-    highScores,
-    checkCollision,
-  ]);
+  }, [isRunning, advanceStep, ballsLength, highScores, checkCollision, score, highScore]);
+
+  useInterval(() => spawnBall(), isRunning ? SPAWN_INTERVAL : null);
 
   return (
     <div className="d-flex justify-content-center p-2">

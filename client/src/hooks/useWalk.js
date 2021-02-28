@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const useWalk = (maxSteps) => {
   const [position, setPosition] = useState({x: 0, y: 0});
