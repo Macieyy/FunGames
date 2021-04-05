@@ -37,7 +37,7 @@ const Login = (props) => {
     <div className="auth_form">
       <h2 className="text-center">Please login</h2>
       <form onSubmit={onSubmit}>
-        <FormGroup controlId="username" bsSize="large">
+        <FormGroup controlId="username" size="lg">
           <FormLabel>Username</FormLabel>
           <FormControl
             name="username"
@@ -46,7 +46,7 @@ const Login = (props) => {
             placeholder="Enter username"
           />
         </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
+        <FormGroup controlId="password" size="lg">
           <FormLabel>Password</FormLabel>
           <FormControl
 		  	name="password"
@@ -55,7 +55,7 @@ const Login = (props) => {
             placeholder="Enter password"
           />
         </FormGroup>
-        <Button bsSize="large" type="submit">
+        <Button size="lg" type="submit">
           Login
         </Button>
         <Form.Text id="sign-up-link" muted>

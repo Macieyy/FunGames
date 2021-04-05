@@ -1,16 +1,16 @@
 import React from "react";
+import loadable from '@loadable/component'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./hocs/PrivateRoute";
-import Home from "./pages/home/Home.component";
-import Login from "./pages/auth/login.component";
 import PageNavbar from "./components/navbar/navbar.component";
-import Leaderboard from "./components/leaderboards/profile_leaderboard.component";
-import Register from "./pages/auth/register.component";
 
-//games
-import Cubes from "./pages/games/Cubes/Cubes.component";
-import Snake from "./pages/games/Snake/Snake.component";
-import CatchTheBall from "./pages/games/Catch_the_ball/Catch_the_ball";
+const Home = loadable(() => import('./pages/home/Home.component'))
+const Login = loadable(() => import('./pages/auth/login.component'))
+const Register = loadable(() => import('./pages/auth/register.component'))
+const Leaderboard = loadable(() => import('./components/leaderboards/profile_leaderboard.component'))
+const Cubes = loadable(() => import('./pages/games/Cubes/Cubes.component'))
+const Snake = loadable(() => import('./pages/games/Snake/Snake.component'))
+const CatchTheBall = loadable(() => import('./pages/games/Catch_the_ball/Catch_the_ball'))
 
 function App() {
 
