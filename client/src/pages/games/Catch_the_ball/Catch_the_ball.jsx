@@ -29,38 +29,38 @@ const CatchTheBall = () => {
     setGameOver(false);
     setIsRunning(true);
   };
-  const endGame = () => {
+  const endGame = useCallback(() => {
     setIsRunning(false);
     setSpeed(null);
     setGameOver(true);
     updateHighScore("catch the ball", score);
-  };
+  }, [score, updateHighScore]);
 
-  const checkCollision = useCallback(() => {
-    var player = playerRef.current.getBoundingClientRect();
-    balls.map((ball, index) => {
-      console.log(ball);
-      var ballRect = document
-        .getElementById("ball" + index)
-        .getBoundingClientRect();
-      if (
-        player.top + player.height < ballRect.top ||
-        player.top > ballRect.top + ballRect.height ||
-        player.left + player.width < ballRect.left ||
-        player.left > ballRect.left + ballRect.width
-      ) {
-        if (ball.sprite.includes("redBall")) {
-          endGame();
-          return;
-        } else {
-          setScore(score + calculatePoints(balls[index]));
-          setBalls(removeBall(balls, index));
-        }
-        return;
-      }
-    });
-    return false;
-  }, []);
+  // const checkCollision = () => {
+  //   var player = playerRef.current.getBoundingClientRect();
+  //   balls.map((ball, index) => {
+  //     console.log(ball);
+  //     var ballRect = document
+  //       .getElementById("ball" + index)
+  //       .getBoundingClientRect();
+  //     if (
+  //       player.top + player.height < ballRect.top ||
+  //       player.top > ballRect.top + ballRect.height ||
+  //       player.left + player.width < ballRect.left ||
+  //       player.left > ballRect.left + ballRect.width
+  //     ) {
+  //       if (ball.sprite.includes("redBall")) {
+  //         endGame();
+  //         return;
+  //       } else {
+  //         setScore(score + calculatePoints(balls[index]));
+  //         setBalls(removeBall(balls, index));
+  //       }
+  //       return;
+  //     }
+  //   });
+  //   return false;
+  // };
 
   const advanceStep = useCallback(() => {
     setBalls((oldBalls) => {
@@ -125,7 +125,7 @@ const CatchTheBall = () => {
       stop();
     }
     return () => stop();
-  }, [isRunning, advanceStep, ballsLength, highScores, checkCollision, score, highScore]);
+  }, [isRunning, advanceStep, ballsLength, highScores, score, highScore, balls, endGame]);
 
   useInterval(() => spawnBall(), isRunning ? SPAWN_INTERVAL : null);
 

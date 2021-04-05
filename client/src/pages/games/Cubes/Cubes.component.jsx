@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { createStage, checkCollision } from "./gameHelper";
+import { createStage, checkCollision } from "./utils";
 
 //Styled Componets
 

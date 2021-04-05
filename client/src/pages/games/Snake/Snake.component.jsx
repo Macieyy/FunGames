@@ -83,7 +83,6 @@ const Snake = () => {
     setGameOver(false);
   };
 
-  //wywoluje sie gdy zmieniaja sie parametry w callbacku (snake, pear, gameOver)
   useEffect(() => {
     if (highScores.length > 0) {
       setHighScore(highScores[1].highScore);

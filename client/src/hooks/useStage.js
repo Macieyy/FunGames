@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { createStage } from "../pages/games/Cubes/gameHelper";
+import { createStage } from "../pages/games/Cubes/utils";
 
 export const useStage = (player, resetPlayer) => {
   const [stage, setStage] = useState(createStage());

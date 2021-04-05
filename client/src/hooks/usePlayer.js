@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 
 import { TETROMINOS, randomTetromino } from "../pages/games/Cubes/tetrominos";
-import { STAGE_WIDTH, checkCollision } from "../pages/games/Cubes/gameHelper";
+import { STAGE_WIDTH, checkCollision } from "../pages/games/Cubes/utils";
 
 export const usePlayer = () => {
   const [player, setPlayer] = useState({
@@ -11,7 +11,7 @@ export const usePlayer = () => {
   });
 
   const rotate = (matrix, dir) => {
-    // //Zamiana rzędu na kolumny
+    //Transpozycja macierzy
     const rotatedTetro = matrix.map((_, index) =>
       matrix.map((col) => col[index])
     );
